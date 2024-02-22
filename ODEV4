@@ -1,0 +1,41 @@
+
+fun main() {
+    val anasayfa = document.getElementById("anasayfa") 
+    val sayfaA = document.getElementById("sayfaA")
+    val sayfaX = document.getElementById("sayfaX") 
+    val sayfaB = document.getElementById("sayfaB") 
+    val sayfaY = document.getElementById("sayfaY") 
+
+
+
+
+    val goster = fun(id: String) {
+        val sayfalar = arrayOf(anasayfa, sayfaA, sayfaX, sayfaB, sayfaY)
+        for (sayfa in sayfalar) {
+            sayfa.style.display = "none"
+        }
+        document.getElementById(id)?.style?.display = "block"
+    }
+
+    val gonder = fun(id: String) {
+        goster(id)
+    }
+
+    val geri = fun(_: Event) {
+        window.history.back()
+    }
+
+    val buttons = document.getElementsByTagName("button")
+    for (button in buttons) {
+        button.addEventListener("click", {
+            val id = (it.target as HTMLDivElement).textContent?.toLowerCase() ?: ""
+            if (id.isNotEmpty()) {
+                if (id == "geri") {
+                    geri(it)
+                } else {
+                    gonder(id)
+                }
+            }
+        })
+    }
+}
